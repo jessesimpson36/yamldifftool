@@ -30,6 +30,11 @@ global:
   labels:
     app: camunda-platform
 
+  badOption:
+    jesse:
+      - hi
+      - there
+
   # Image configuration to be used in each sub chart
   # https://hub.docker.com/u/camunda
   image:
