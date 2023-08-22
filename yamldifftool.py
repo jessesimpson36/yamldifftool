@@ -16,7 +16,7 @@ def filter_defaults(base, user_provided, root_diff, path=[], strict=False):
         parent_path=path
         for key in user_provided.keys():
             if not strict and key not in base.keys():
-                traverse_and_set(user_provided, root_diff, path + [key])
+                traverse_and_set(user_provided.get(key), root_diff, path + [key])
             elif key in base.keys():
                 filter_defaults(base.get(key), user_provided.get(key), root_diff, path=path + [key], strict=strict)
     elif type(user_provided) is list:
