@@ -51,3 +51,8 @@ zeebe:
   - name: JESSE_HI
     value: hi
 ```
+
+## Limitations
+
+Currently the script does not account for helm subcharts. Be mindful of this.
+
