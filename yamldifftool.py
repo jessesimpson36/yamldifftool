@@ -1,0 +1,51 @@
+# coding: utf-8
+import yaml
+import argparse
+
+
+def traverse_and_set(user_provided, root_diff, path):
+    k = root_diff
+    for item in path[:-1]:
+        if item not in k.keys():
+            k[item] = {}
+        k = k.get(item)
+    k[path[-1]] = user_provided
+
+def filter_defaults(base, user_provided, root_diff, path=[]):
+    if type(user_provided) is dict:
+        parent_path=path
+        for key in user_provided.keys():
+            if key in base.keys():
+                filter_defaults(base.get(key), user_provided.get(key), root_diff, path=path + [key])
+    elif type(user_provided) is list:
+        if user_provided != base:
+            traverse_and_set(user_provided, root_diff, path)
+#         for i, item in enumerate(user_provided):
+#             if i < len(base):
+#                 filter_defaults(base[i] , item, root_diff, path=i):
+    else:
+        if base != user_provided:
+            traverse_and_set(user_provided, root_diff, path)
+
+root_diff = {}
+path = []
+
+
+parser = argparse.ArgumentParser(description="Tool to identify diffs between values.yaml and default")
+parser.add_argument("default_values", metavar="default_values.yaml", type=str, help="Base values.yaml for the helm chart version you're using")
+parser.add_argument("user_customized_values", metavar="customized.yaml", type=str, help="Customized values.yaml")
+parser.add_argument("-o", "--output", default="output", type=str, help="Write to filename. Otherwise default is output")
+args = parser.parse_args()
+
+
+with open(args.default_values, 'r') as default_values:
+    default_v = yaml.safe_load(default_values)
+
+with open(args.user_customized_values, 'r') as overwritten_values:
+    overwritten_v = yaml.safe_load(overwritten_values)
+
+filter_defaults(default_v, overwritten_v, root_diff, path)
+
+with open(args.output, 'w') as outfile:
+    yaml.dump(root_diff, outfile)
+
