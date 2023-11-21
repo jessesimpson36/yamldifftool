@@ -17,14 +17,14 @@ python3 yamldifftool.py <base_values.yaml>  <customized_values.yaml> --output <o
 ```
 
 ```
-python3 yamldifftool.py default_values.yaml ugly.yaml --output output
+python3 yamldifftool.py test/default_values.yaml test/ugly.yaml --output test/output
 ```
 
-A new file will be written named `output` (or you can specify your own filename with -o)
+A new file will be written named `test/output` (or you can specify your own filename with -o)
 
 The new file will only contain entries without the defaults.
 
-In this case, compare the contents of ugly.yaml with the following output
+In this case, compare the contents of `test/ugly.yaml` with the defaults to produce the following output.
 
 ```
 global:
