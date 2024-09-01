@@ -51,5 +51,5 @@ with open(args.user_customized_values, 'r') as overwritten_values:
 filter_defaults(default_v, overwritten_v, root_diff, path, args.strict)
 
 with open(args.output, 'w') as outfile:
-    yaml.dump(root_diff, outfile)
+    yaml.dump(root_diff, outfile, sort_keys=False)
 
