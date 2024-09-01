@@ -32,10 +32,10 @@ python3 yamldifftool.py <base_values.yaml>  <customized_values.yaml> --output <o
 ```
 
 ```
-python3 yamldifftool.py test/default_values.yaml test/ugly.yaml --output test/output
+python3 yamldifftool.py test/default_values.yaml test/ugly.yaml --output test/output.yaml
 ```
 
-A new file will be written named `test/output` (or you can specify your own filename with -o)
+A new file will be written named `test/output.yaml` (or you can specify your own filename with -o)
 
 The new file will only contain entries without the defaults.
 
@@ -43,18 +43,22 @@ In this case, compare the contents of `test/ugly.yaml` with the defaults to prod
 
 ```
 global:
-  elasticsearch:
-    prefix: zeebe-re
-  identity:
-    auth:
-      webModeler:
-        redirectUrl: http:ost:8084
+  badOption:
+    jesse:
+    - hi
+    - there
   image:
     tag: 8.2.2
   ingress:
     annotations:
       nginx.ingress.kubernetes.io/ssl-redirect: brrr
+  elasticsearch:
+    prefix: zeebe-re
   zeebePort: 265
+  identity:
+    auth:
+      webModeler:
+        redirectUrl: http:ost:8084
 zeebe:
   env:
   - name: ZEEBE_BROKER_DATA_SNAPSHOTPERIOD

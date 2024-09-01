@@ -1,0 +1,27 @@
+global:
+  badOption:
+    jesse:
+    - hi
+    - there
+  image:
+    tag: 8.2.2
+  ingress:
+    annotations:
+      nginx.ingress.kubernetes.io/ssl-redirect: brrr
+  elasticsearch:
+    prefix: zeebe-re
+  zeebePort: 265
+  identity:
+    auth:
+      webModeler:
+        redirectUrl: http:ost:8084
+zeebe:
+  env:
+  - name: ZEEBE_BROKER_DATA_SNAPSHOTPERIOD
+    value: 5m
+  - name: ZEEBE_BROKER_DATA_DISKUSAGECOMMANDWATERMARK
+    value: '0.85'
+  - name: ZEEBE_BROKER_DATA_DISKUSAGEREPLICATIONWATERMARK
+    value: '0.87'
+  - name: JESSE_HI
+    value: hi
