@@ -1,6 +1,21 @@
 ## Ever see a massive customized values.yaml and only want to see how it differs from upstream?
 
 
+### Helm plugin installation
+
+```sh
+helm plugin install https://github.com/jessesimpson36/yamldifftool.git
+```
+
+Then you may access the cli by using the command
+
+```sh
+helm yamldiff
+```
+
+instead of `python3 yamldifftool.py ...`
+
+
 ### Installation
 
 To run the application, you need python3 installed and to run
