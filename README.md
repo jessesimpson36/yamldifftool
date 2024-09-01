@@ -41,7 +41,7 @@ The new file will only contain entries without the defaults.
 
 In this case, compare the contents of `test/ugly.yaml` with the defaults to produce the following output.
 
-```
+```yaml
 global:
   badOption:
     jesse:
