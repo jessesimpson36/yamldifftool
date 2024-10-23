@@ -1,9 +1,9 @@
 name: "yamldiff"
-version: "0.0.2"
+version: "0.0.3"
 usage: "Gets the differences between a helm values.yaml file and the upstream"
 description: "Gets the differences between a helm values.yaml file and the upstream"
 ignoreFlags: false
-command: "python3 $HELM_PLUGIN_DIR/yamldifftool.py"
+command: "$HELM_PLUGIN_DIR/dist/yamldifftool/yamldifftool"
 hooks:
-  install: "if ! pip3 show pyyaml; then pip3 install -r $HELM_PLUGIN_DIR/requirements.txt; fi"
-  update: "if ! pip3 show pyyaml; then pip3 install -r $HELM_PLUGIN_DIR/requirements.txt; fi"
+  install: "if ! pip3 show pyyaml; then pyinstaller yamldifftool.py; fi"
+  update: "if ! pip3 show pyyaml; then pyinstaller yamldifftool.py; fi"
