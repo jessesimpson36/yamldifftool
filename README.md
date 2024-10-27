@@ -1,11 +1,25 @@
-## Ever see a massive customized values.yaml and only want to see how it differs from upstream?
+# YAML Diff Tool
 
+Ever see a massive customized `values.yaml` and only want to see how it differs from upstream?
 
-### Helm plugin installation
+## Table of Contents
+- [Installation](#installation)
+    - [Helm Plugin Installation](#helm-plugin-installation)
+    - [Manual Installation](#manual-installation)
+- [Usage](#usage)
+    - [Command Line Interface](#command-line-interface)
+    - [Examples](#examples)
+- [Info](#info)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Installation
+
+### Helm Plugin Installation
 
 ```sh
 helm plugin install https://github.com/jessesimpson36/yamldifftool.git
-```
+````
 
 Then you may access the cli by using the command
 
@@ -13,10 +27,7 @@ Then you may access the cli by using the command
 helm yamldiff
 ```
 
-instead of `python3 yamldifftool.py ...`
-
-
-### Installation
+### Manual Installation
 
 To run the application, you need python3 installed and to run
 ```
@@ -24,13 +35,16 @@ pip install -r requirements.txt
 ```
 
 
-### Info
+## Usage
+
+### Command line interface
 
 Format:
 ```
 python3 yamldifftool.py <base_values.yaml>  <customized_values.yaml> --output <output_filename>
 ```
 
+### Examples
 ```
 python3 yamldifftool.py test/default_values.yaml test/ugly.yaml --output test/output.yaml
 ```
