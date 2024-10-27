@@ -85,4 +85,12 @@ zeebe:
     value: hi
 ```
 
+## Info
+This tool helps you compare a customized values.yaml file with the upstream defaults and outputs the differences.  
+
+## Contributing
+Contributions are welcome! Please open an issue or submit a pull request.  
+
+## License
+This project is licensed under the MIT License.
 
