@@ -9,7 +9,6 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - run: pwd
-      - run: apt update -y && apt install -y python3 python3-pip
       - run: pip3 install -r requirements.txt
       - run: pyinstaller yamldifftool.py
       - run: python3 test.py
