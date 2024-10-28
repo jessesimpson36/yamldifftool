@@ -1,6 +1,6 @@
 # YAML Diff Tool
 
-Ever see a massive customized `values.yaml` and only want to see how it differs from upstream?
+This tool allows you to compare a customized `values.yaml` file against the upstream defaults, highlighting the differences.
 
 ## Table of Contents
 - [Installation](#installation)
@@ -46,14 +46,14 @@ python3 yamldifftool.py <base_values.yaml>  <customized_values.yaml> --output <o
 
 ### Examples
 ```
-python3 yamldifftool.py test/default_values.yaml test/ugly.yaml --output test/output.yaml
+python3 yamldifftool.py test/default_values.yaml test/large_copied_values.yaml --output test/output.yaml
 ```
 
 A new file will be written named `test/output.yaml` (or you can specify your own filename with -o)
 
 The new file will only contain entries without the defaults.
 
-In this case, compare the contents of `test/ugly.yaml` with the defaults to produce the following output.
+In this case, compare the contents of `test/large_copied_values.yaml` with the defaults to produce the following output.
 
 ```yaml
 global:

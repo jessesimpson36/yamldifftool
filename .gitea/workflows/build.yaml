@@ -12,6 +12,6 @@ jobs:
       - run: apt update -y && apt install -y python3 python3-pip
       - run: pip3 install -r requirements.txt
       - run: python3 test.py
-      - run: python3 yamldifftool.py test/default_values.yaml test/ugly.yaml
+      - run: python3 yamldifftool.py test/default_values.yaml test/large_copied_values.yaml
 
 

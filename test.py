@@ -7,16 +7,6 @@ class TestYamlDiffTool(unittest.TestCase):
     def setUp(self):
         self.base_yaml = {
             'global': {
-                'elasticsearch': {
-                    'prefix': 'zeebe-re'
-                },
-                'identity': {
-                    'auth': {
-                        'webModeler': {
-                            'redirectUrl': 'http://localhost:8084'
-                        }
-                    }
-                },
                 'image': {
                     'tag': '8.2.2'
                 },
@@ -24,15 +14,7 @@ class TestYamlDiffTool(unittest.TestCase):
                     'annotations': {
                         'nginx.ingress.kubernetes.io/ssl-redirect': 'true'
                     }
-                },
-                'zeebePort': 265
-            },
-            'zeebe': {
-                'env': [
-                    {'name': 'ZEEBE_BROKER_DATA_SNAPSHOTPERIOD', 'value': '5m'},
-                    {'name': 'ZEEBE_BROKER_DATA_DISKUSAGECOMMANDWATERMARK', 'value': '0.85'},
-                    {'name': 'ZEEBE_BROKER_DATA_DISKUSAGEREPLICATIONWATERMARK', 'value': '0.87'}
-                ]
+                }
             }
         }
 
