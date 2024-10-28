@@ -14,7 +14,6 @@ def traverse_and_set(user_provided, root_diff, path):
 
 def filter_defaults(base, user_provided, root_diff, path=[], strict=False):
     if type(user_provided) is dict:
-        parent_path = path
         for key in user_provided.keys():
             if not strict and key not in base.keys():
                 traverse_and_set(user_provided.get(key), root_diff, path + [key])
@@ -23,9 +22,6 @@ def filter_defaults(base, user_provided, root_diff, path=[], strict=False):
     elif type(user_provided) is list:
         if user_provided != base:
             traverse_and_set(user_provided, root_diff, path)
-    #         for i, item in enumerate(user_provided):
-    #             if i < len(base):
-    #                 filter_defaults(base[i] , item, root_diff, path=i):
     else:
         if base != user_provided:
             traverse_and_set(user_provided, root_diff, path)
