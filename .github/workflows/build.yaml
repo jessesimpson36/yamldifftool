@@ -14,5 +14,5 @@ jobs:
       - run: python3 test.py
       - run: python3 yamldifftool.py test/default_values.yaml test/large_copied_values.yaml
       - run: docker build -t tmpimage ./
-      - run: docker run -v ./test:/home/app_user/test tmpimage python3 test/default_values.yaml test/large_copied_values.yaml
+      - run: docker run -v ./test:/home/app_user/test tmpimage python3 yamldifftool.py test/default_values.yaml test/large_copied_values.yaml
 
