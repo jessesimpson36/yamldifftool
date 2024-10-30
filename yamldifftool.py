@@ -38,7 +38,7 @@ if __name__ == "__main__":
     parser.add_argument("user_customized_values", metavar="customized.yaml", type=str, help="Customized values.yaml")
     parser.add_argument("-o", "--output", default=None, type=str,
                         help="Write to filename. If not specified, output is written to stdout.")
-    parser.add_argument("-s", "--strict", default=False, action=argparse.BooleanOptionalAction,
+    parser.add_argument("-s", "--strict", default=False, action=argparse.BooleanOptionalAction, type=bool,
                         help="strict mode will drop all options not in default values.yaml.")
     args = parser.parse_args()
 
