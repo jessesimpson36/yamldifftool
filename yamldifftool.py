@@ -1,6 +1,7 @@
 # coding: utf-8
 import yaml
 import argparse
+import sys
 
 
 def traverse_and_set(user_provided, root_diff, path):
@@ -35,8 +36,8 @@ if __name__ == "__main__":
     parser.add_argument("default_values", metavar="default_values.yaml", type=str,
                         help="Base values.yaml for the helm chart version you're using")
     parser.add_argument("user_customized_values", metavar="customized.yaml", type=str, help="Customized values.yaml")
-    parser.add_argument("-o", "--output", default="output", type=str,
-                        help="Write to filename. Otherwise default is output")
+    parser.add_argument("-o", "--output", default=None, type=str,
+                        help="Write to filename. If not specified, output is written to stdout.")
     parser.add_argument("-s", "--strict", default=False, action=argparse.BooleanOptionalAction, type=bool,
                         help="strict mode will drop all options not in default values.yaml.")
     args = parser.parse_args()
@@ -49,5 +50,8 @@ if __name__ == "__main__":
 
     filter_defaults(default_v, overwritten_v, root_diff, path, args.strict)
 
-    with open(args.output, 'w') as outfile:
-        yaml.dump(root_diff, outfile, sort_keys=False)
+    if args.output:
+        with open(args.output, 'w') as outfile:
+            yaml.dump(root_diff, outfile, sort_keys=False)
+    else:
+        yaml.dump(root_diff, sys.stdout, sort_keys=False)
