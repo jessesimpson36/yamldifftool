@@ -46,8 +46,7 @@ jobs:
         with:
           tag: ${{ github.ref }}
           name: ${{ github.ref }}
-        env:
-          GH_TOKEN: '${{ steps.generate-github-token.outputs.token }}'
+          token: ${{ steps.generate-github-token.outputs.token }}
 
       - name: Build Docker image
         run: docker build -t ghcr.io/${{ github.repository }}:${{ github.ref }} .
