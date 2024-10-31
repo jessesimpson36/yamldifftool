@@ -48,7 +48,7 @@ jobs:
         id: create_release
         with:
           tag: ${{ github.ref }}
-          name: ${{ github.ref }}
+          name: ${{ github.ref_name }}
           token: ${{ steps.generate-github-token.outputs.token }}
 
       - name: Login to GitHub Container Registry
