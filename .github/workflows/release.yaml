@@ -1,0 +1,66 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Generate GitHub token
+        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a # v2
+        id: generate-github-token
+        with:
+          app_id: ${{ secrets.RELEASE_BOT_APP_ID }}
+          private_key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ steps.generate-github-token.outputs.token }}
+          fetch-tags: true
+
+      - name: Bump version in plugin.yaml
+        run: |
+          VERSION=$(echo ${GITHUB_REF#refs/tags/})
+          sed -i "s/version:.*/version: $VERSION/" plugin.yaml
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add plugin.yaml
+          git commit -m "Bump version to $VERSION"
+          git tag -d $VERSION
+          git push --delete origin $VERSION
+          git tag $VERSION
+          git push origin HEAD:main --tags
+        env:
+          GH_TOKEN: '${{ steps.generate-github-token.outputs.token }}'
+
+
+      - uses: ncipollo/release-action@v1
+        name: Create GitHub Release
+        id: create_release
+        with:
+          tag: ${{ github.ref }}
+          name: ${{ github.ref }}
+          token: ${{ steps.generate-github-token.outputs.token }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/jessesimpson36/yamldiff:${{ github.ref_name }}
