@@ -10,6 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Generate GitHub token
+        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a # v2
+        id: generate-github-token
+        with:
+          app_id: ${{ secrets.RELEASE_BOT_APP_ID }}
+          private_key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -24,6 +31,9 @@ jobs:
           git tag -d $VERSION
           git tag $VERSION
           git push origin HEAD:main
+        env:
+          GH_TOKEN: '${{ steps.generate-github-token.outputs.token }}'
+
 
       - uses: ncipollo/release-action@v1
         name: Create GitHub Release
@@ -32,13 +42,15 @@ jobs:
           tag: ${{ github.ref }}
           name: ${{ github.ref }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: '${{ steps.generate-github-token.outputs.token }}'
 
       - name: Build Docker image
         run: docker build -t ghcr.io/${{ github.repository }}:${{ github.ref }} .
 
       - name: Log in to GitHub Container Registry
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        run: echo ${{ secrets.GH_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        env:
+          GH_TOKEN: '${{ steps.generate-github-token.outputs.token }}'
 
       - name: Push Docker image
         run: docker push ghcr.io/${{ github.repository }}/yamldifftool:${{ github.ref }}
