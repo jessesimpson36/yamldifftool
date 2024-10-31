@@ -22,6 +22,7 @@ jobs:
         with:
           ref: main
           token: ${{ steps.generate-github-token.outputs.token }}
+          fetch-tags: true
 
       - name: Bump version in plugin.yaml
         run: |
