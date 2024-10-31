@@ -22,7 +22,7 @@ jobs:
 
       - name: Configure git to use the token
         run: |
-          git remote set-url origin https://x-access-token:${{ steps.generate-github-token.outputs.token }}@github.com/${{ github.repository }}.git
+          git remote set-url origin https://${{ steps.generate-github-token.outputs.token }}@github.com/${{ github.repository }}.git
 
       - name: Bump version in plugin.yaml
         run: |
@@ -33,8 +33,9 @@ jobs:
           git add plugin.yaml
           git commit -m "Bump version to $VERSION"
           git tag -d $VERSION
+          git push --delete origin $VERSION
           git tag $VERSION
-          git push origin HEAD:main
+          git push origin HEAD:main --tags
         env:
           GH_TOKEN: '${{ steps.generate-github-token.outputs.token }}'
 
