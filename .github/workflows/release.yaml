@@ -19,8 +19,9 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v4
-        ref: main
-        token: ${{ steps.generate-github-token.outputs.token }}
+        with:
+          ref: main
+          token: ${{ steps.generate-github-token.outputs.token }}
 
       - name: Bump version in plugin.yaml
         run: |
