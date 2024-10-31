@@ -20,6 +20,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Configure git to use the token
+        run: |
+          git remote set-url origin https://x-access-token:${{ steps.generate-github-token.outputs.token }}@github.com/${{ github.repository }}.git
+
       - name: Bump version in plugin.yaml
         run: |
           VERSION=$(echo ${GITHUB_REF#refs/tags/})
