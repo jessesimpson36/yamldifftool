@@ -16,6 +16,10 @@ def traverse_and_set(user_provided, root_diff, path):
 def filter_defaults(base, user_provided, root_diff, path=[], strict=False):
     if type(user_provided) is dict:
         for key in user_provided.keys():
+            if base is None:
+                continue
+            if type(base) is str:
+                continue
             if not strict and key not in base.keys():
                 traverse_and_set(user_provided.get(key), root_diff, path + [key])
             elif key in base.keys():
