@@ -31,23 +31,35 @@ def filter_defaults(base, user_provided, root_diff, path=[], strict=False):
         if base != user_provided:
             traverse_and_set(user_provided, root_diff, path)
 
-
 if __name__ == "__main__":
     root_diff = {}
     path = []
 
     parser = argparse.ArgumentParser(description="Tool to identify diffs between values.yaml and default")
-    parser.add_argument("default_values", metavar="default_values.yaml", type=str,
-                        help="Base values.yaml for the helm chart version you're using")
     parser.add_argument("user_customized_values", metavar="customized.yaml", type=str, help="Customized values.yaml")
     parser.add_argument("-o", "--output", default=None, type=str,
                         help="Write to filename. If not specified, output is written to stdout.")
     parser.add_argument("-s", "--strict", default=False, action=argparse.BooleanOptionalAction, type=bool,
                         help="strict mode will drop all options not in default values.yaml.")
+    parser.add_argument("--default_values", metavar="default_values.yaml", type=str,
+                        help="Base values.yaml for the helm chart version you're using")
+    parser.add_argument("--chart", type=str, help="Helm chart name")
+    parser.add_argument("--version", type=str, help="Helm chart version")
     args = parser.parse_args()
 
-    with open(args.default_values, 'r') as default_values:
-        default_v = yaml.safe_load(default_values)
+    if args.default_values:
+        with open(args.default_values, 'r') as default_values:
+            default_v = yaml.safe_load(default_values)
+    elif args.chart and args.version:
+        import subprocess
+        result = subprocess.run(
+            ["helm", "show", "values", args.chart, "--version", args.version],
+            capture_output=True, text=True, check=True
+        )
+        default_v = yaml.safe_load(result.stdout)
+        print(type(default_v))
+    else:
+        raise ValueError("Either --default_values or both --chart and --version must be specified")
 
     with open(args.user_customized_values, 'r') as overwritten_values:
         overwritten_v = yaml.safe_load(overwritten_values)
