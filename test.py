@@ -1,5 +1,8 @@
 import copy
 import unittest
+
+import yaml
+
 from yamldifftool import filter_defaults
 
 class TestYamlDiffTool(unittest.TestCase):
@@ -56,6 +59,30 @@ class TestYamlDiffTool(unittest.TestCase):
         root_diff = {}
         filter_defaults(self.base_yaml, user_yaml, root_diff, strict=True)
         self.assertEqual(root_diff, {})
+
+    def test_none_handling_in_base(self):
+        base_yaml = yaml.safe_load("""
+        global:
+          identity:
+            auth:
+              operate:
+                existingSecret:
+          image:
+            tag: 8.2.2
+        """)
+        user_yaml = yaml.safe_load("""
+        global:
+          identity:
+            auth:
+              operate:
+                existingSecret:
+                  name: nameofsecret
+          image:
+            tag: 8.3.2
+        """)
+        root_diff = {}
+        filter_defaults(base_yaml, user_yaml, root_diff)
+        self.assertEqual(root_diff, {"global": {"image": {"tag": "8.3.2"}}})
 
 if __name__ == '__main__':
     unittest.main()
