@@ -41,10 +41,10 @@ if __name__ == "__main__":
                         help="Write to filename. If not specified, output is written to stdout.")
     parser.add_argument("-s", "--strict", default=False, action=argparse.BooleanOptionalAction, type=bool,
                         help="strict mode will drop all options not in default values.yaml.")
-    parser.add_argument("--default_values", metavar="default_values.yaml", type=str,
+    parser.add_argument("-d", "--default_values", metavar="default_values.yaml", type=str,
                         help="Base values.yaml for the helm chart version you're using")
-    parser.add_argument("--chart", type=str, help="Helm chart name")
-    parser.add_argument("--version", type=str, help="Helm chart version")
+    parser.add_argument("-c", "--chart", type=str, help="Helm chart name")
+    parser.add_argument("-v", "--version", type=str, help="Helm chart version")
     args = parser.parse_args()
 
     if args.default_values:
