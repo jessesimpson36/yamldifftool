@@ -82,7 +82,7 @@ class TestYamlDiffTool(unittest.TestCase):
         """)
         root_diff = {}
         filter_defaults(base_yaml, user_yaml, root_diff)
-        self.assertEqual(root_diff, {"global": {"image": {"tag": "8.3.2"}}})
+        self.assertEqual(root_diff, {'global': {'identity': {'auth': {'operate': {'existingSecret': {'name': 'nameofsecret'}}}}, 'image': {'tag': '8.3.2'}}})
 
 if __name__ == '__main__':
     unittest.main()
