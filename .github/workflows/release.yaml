@@ -50,6 +50,7 @@ jobs:
           tag: ${{ github.ref }}
           name: ${{ github.ref_name }}
           token: ${{ steps.generate-github-token.outputs.token }}
+          generateReleaseNotes: true
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
