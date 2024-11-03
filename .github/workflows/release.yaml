@@ -59,9 +59,15 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PAT }}
+
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: ghcr.io/jessesimpson36/yamldiff:${{ github.ref_name }}
+          tags: ghcr.io/jessesimpson36/yamldiff:${{ github.ref_name }},jessesimpson/yamldiff:${{ github.ref_name }}
