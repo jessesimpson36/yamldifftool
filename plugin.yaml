@@ -1,5 +1,5 @@
 name: "yamldiff"
-version: 0.0.7
+version: 0.0.8
 usage: "Gets the differences between a helm values.yaml file and the upstream"
 description: "Gets the differences between a helm values.yaml file and the upstream"
 ignoreFlags: false
