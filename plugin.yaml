@@ -1,7 +1,19 @@
 name: "yamldiff"
-version: 0.0.8
+version: "0.0.8"
 usage: "Gets the differences between a helm values.yaml file and the upstream"
-description: "Gets the differences between a helm values.yaml file and the upstream"
+description: "Compare customized values.yaml files against upstream defaults, highlighting only the differences. Helps identify configuration drift and simplify values files by removing redundant default values."
+home: "https://github.com/jessesimpson36/yamldifftool"
+sources:
+  - "https://github.com/jessesimpson36/yamldifftool"
+maintainers:
+  - name: "Jesse Simpson"
+    email: "jesse.simpson36@gmail.com"
+keywords:
+  - "yaml"
+  - "diff"
+  - "values"
+  - "helm"
+  - "configuration"
 ignoreFlags: false
 command: "$HELM_PLUGIN_DIR/dist/yamldifftool/yamldifftool"
 hooks:

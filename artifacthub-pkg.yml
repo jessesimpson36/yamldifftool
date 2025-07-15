@@ -1,0 +1,80 @@
+version: 0.0.8
+name: yamldiff
+displayName: YAML Diff Tool
+createdAt: "2024-01-01T00:00:00Z"
+description: Compare customized values.yaml files against upstream defaults, highlighting only the differences. Helps identify configuration drift and simplify values files by removing redundant default values.
+logoURL: https://helm.sh/img/helm.svg
+digest: ""
+license: MIT
+homeURL: https://github.com/jessesimpson36/yamldifftool
+appVersion: 0.0.8
+containersImages: []
+operator: false
+deprecated: false
+keywords:
+  - yaml
+  - diff
+  - values
+  - helm
+  - configuration
+  - devops
+  - kubernetes
+links:
+  - name: Source
+    url: https://github.com/jessesimpson36/yamldifftool
+  - name: Issues
+    url: https://github.com/jessesimpson36/yamldifftool/issues
+maintainers:
+  - name: Jesse Simpson
+    email: jesse.simpson36@gmail.com
+readme: |
+  # YAML Diff Tool
+
+  This Helm plugin allows you to compare a customized `values.yaml` file against the upstream defaults, highlighting the differences.
+
+  ## Installation
+
+  ```sh
+  helm plugin install https://github.com/jessesimpson36/yamldifftool.git
+  ```
+
+  ## Usage
+
+  ```sh
+  helm yamldiff <base_values.yaml> <customized_values.yaml> --output <output_filename>
+  ```
+
+  ## Features
+
+  - Compare YAML files and output only the differences
+  - Remove redundant default values from your configurations
+  - Identify configuration drift between environments
+  - Simplify values files by eliminating noise
+
+  ## Example
+
+  ```sh
+  helm yamldiff default-values.yaml my-values.yaml --output diff-output.yaml
+  ```
+
+  This will create a new file containing only the values that differ from the defaults.
+install: |
+  # YAML Diff Tool Helm Plugin
+
+  This plugin compares YAML files and outputs only the differences, helping you identify configuration drift and simplify values files.
+
+  ## Installation
+
+  The plugin will be automatically installed when you run:
+
+  ```sh
+  helm plugin install https://github.com/jessesimpson36/yamldifftool.git
+  ```
+
+  ## Usage
+
+  After installation, use the plugin with:
+
+  ```sh
+  helm yamldiff <base_values.yaml> <customized_values.yaml> --output <output_filename>
+  ```
